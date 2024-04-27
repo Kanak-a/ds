@@ -1,0 +1,6 @@
+#Create a new binary feature "Salary Missing" indicating whether the salary is missing or not.
+df['Salary Missing'] = df['Bond Actor Salary'].isnull().astype(int)
+
+# 1 Hot encoding 
+#For the Actor column
+df = pd.get_dummies(df, columns=['Actor'])
