@@ -1,0 +1,19 @@
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+print(df['Homework_Score'])
+sns.histplot(df['Homework_Score'], kde =True)
+
+#skewness
+df['Homework_Score'].skew()
+
+plt.figure(figsize=(8,6))
+plt.boxplot(df['Attendance (%)'], patch_artist=True)
+plt.show()
+
+df['Attendance (%)']
+
+#outlier = z_score.min()
+outlier = z_score.idxmin()
+outlier_data = df.loc[outlier]
+
