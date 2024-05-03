@@ -1,0 +1,39 @@
+import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+#Word tokenization
+word_tokens = word_tokenize(doc)
+print(f"Word Tokens: {word_tokens}")
+
+#Sentence Tokenization
+sent_tokens = sent_tokenize(doc)
+print(f"Sentence Tokens: {sent_tokens}")
+
+#POS Tagging
+pos_tags = nltk.pos_tag(word_tokenize(doc))
+print(f'POS Tags: {pos_tags}')
+
+#Stop word removals
+stop_words = set(stopwords.words('english'))
+word_tokens = [word for word in word_tokenize(doc) if word.lower() not in stop_words]
+print(f"Stop words removed: {word_tokens}")
+
+#Stemming
+stemmer = PorterStemmer()
+word_tokens = [stemmer.stem(word) for word in word_tokenize(doc)]
+print(f"Stemmed Words: {word_tokens}")
+
+#lemmatization
+lemmatizer = WordNetLemmatizer()
+word_tokens = [lemmatizer.lemmatize(word) for word in word_tokenize(doc)]
+print("Lemmatized words: ", word_tokens)
+
+  vectorizer = TfidfVectorizer()
+tfidf = vectorizer.fit_transform([doc])
+
+word_tfidf = dict(zip(vectorizer.get_feature_names(), tfidf.toarray()[0]))
+print(word_tfidf)
