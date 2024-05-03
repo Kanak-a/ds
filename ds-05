@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.utils import resample
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score
+
+purchased = df['Purchased'].value_counts()[1]
+not_purchased = df['Purchased'].value_counts()[0]
+
+plt.figure(figsize=(8,6))
+plt.bar(['Purchased', 'Not Purchased'], [purchased, not_purchased])
+plt.xlabel('Purchase Status')
+plt.ylabel('Number of Users')
+plt.title('Distribution of Purchased vs. Not Purchased Users')
+plt.legend(['Purchased'])
+plt.show()
+
+plt.scatter(df['Age'], df['EstimatedSalary'], c=df['Purchased'], cmap='plasma')
+plt.legend(['Purchased', 'Not Purchased'])
+
+X = df[['Age', 'EstimatedSalary']]
+y = df['Purchased']
+
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.1, random_state=42)
+
+  scaler = StandardScaler()
+
+X_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.fit_transform(X_test)
+
+  model = LogisticRegression()
+model.fit(X_scaled, y_train)
+
+  y_pred = model.predict(X_test_scaled)
+
+  cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+error_rate = 1 - accuracy
+
+  data = {
+    "metric" : ['Confusion Mat', 'Accuracy', 'Error rate', 'Precision', 'Recall'] ,
+    "value" : [cm, accuracy, error_rate, precision, recall]
+}
+
+scores_df = pd.DataFrame(data)
