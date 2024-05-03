@@ -1,0 +1,14 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_iris
+  iris = load_iris()
+  X,y = iris.data, iris.target
+    df = pd.DataFrame(X, columns=iris.feature_names)
+    print('Features: ')
+for col in df.columns:
+    if df[col].dtype == np.float64:
+        print(f"{col}: numeric")
+    else:
+        print(f"{col}: nominal")
