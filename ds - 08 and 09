@@ -1,0 +1,31 @@
+sns.histplot(data=df, x='fare',kde=True)
+plt.title("Distribution of fare prices ")
+plt.xlabel("Fare (USD)")
+plt.ylabel("Num of Passengers")
+plt.show()
+
+#survival by class
+sns.barplot(x='pclass', y='survived', data=df)
+plt.title("Surival rate ")
+plt.xlabel('Passenger Class')
+plt.ylabel('Survival Rate')
+plt.show()
+
+ #age distribution
+sns.histplot(data=df, x='age', kde=True)
+plt.title("Distribution of Passenger Ages")
+plt.xlabel("Age (Years)")
+plt.ylabel("Number of Passengers")
+plt.show() 
+
+#survival by sex
+sns.pointplot(x="sex", y="survived", hue='pclass', data=df)
+
+sns.scatterplot(x='age', y='survived',hue='sex', data=df)
+
+sns.boxplot(x='sex', y='age', hue='survived', data=df)
+
+#Median age higher for females than males
+#The box for males is narrower, suggesting a tighter distribution of ages around the median.
+#larger box plot for males who did not survive
+#larger box plot for females who did survive
